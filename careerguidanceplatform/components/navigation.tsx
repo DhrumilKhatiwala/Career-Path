@@ -106,7 +106,11 @@ export function Navigation() {
                   </div>
 
                   <div className="border-t pt-4 pb-2 space-y-3">
-                    <Button variant="outline" asChild className="w-full h-11 bg-transparent">
+                    <Button
+                      variant="outline"
+                      asChild
+                      className="w-full h-11 bg-transparent hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105"
+                    >
                       <Link href="/login" onClick={() => setIsOpen(false)}>
                         Login
                       </Link>
@@ -126,11 +130,14 @@ export function Navigation() {
               <Button
                 variant="outline"
                 asChild
-                className="hover:bg-primary/10 border-primary text-primary bg-transparent"
+                className="hover:bg-primary hover:text-primary-foreground border-primary text-primary bg-transparent transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 <Link href="/login">Login</Link>
               </Button>
-              <Button asChild className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
+              <Button
+                asChild
+                className="bg-primary hover:bg-primary/80 hover:shadow-xl transition-all duration-300 hover:scale-105 hover:brightness-110"
+              >
                 <Link href="/signup">Sign Up</Link>
               </Button>
             </div>

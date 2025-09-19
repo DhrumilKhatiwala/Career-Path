@@ -24,25 +24,31 @@ export function ChatWidget() {
     api: "/api/chat",
   })
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     const target = isOpen ? chatWindowRef.current : buttonRef.current
     if (!target) return
 
     const rect = target.getBoundingClientRect()
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY
+
     setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+      x: clientX - rect.left,
+      y: clientY - rect.top,
     })
     setIsDragging(true)
     setHasDragged(false)
     e.preventDefault()
   }
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
+  const handleMove = useCallback(
+    (e: MouseEvent | TouchEvent) => {
       if (!isDragging) return
 
       setHasDragged(true)
+
+      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+      const clientY = "touches" in e ? e.touches[0].clientY : e.clientY
 
       const viewportWidth = window.innerWidth
       const viewportHeight = window.innerHeight
@@ -50,8 +56,8 @@ export function ChatWidget() {
       const elementHeight = isOpen ? 500 : 56
       const padding = 16
 
-      const newX = e.clientX - dragOffset.x
-      const newY = e.clientY - dragOffset.y
+      const newX = clientX - dragOffset.x
+      const newY = clientY - dragOffset.y
 
       const maxX = viewportWidth - elementWidth - padding
       const maxY = viewportHeight - elementHeight - padding
@@ -67,7 +73,7 @@ export function ChatWidget() {
     [isDragging, dragOffset, isOpen],
   )
 
-  const handleMouseUp = useCallback(() => {
+  const handleEnd = useCallback(() => {
     setIsDragging(false)
   }, [])
 
@@ -79,19 +85,27 @@ export function ChatWidget() {
 
   React.useEffect(() => {
     if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove)
-      document.addEventListener("mouseup", handleMouseUp)
+      const options = { passive: false }
+
+      document.addEventListener("mousemove", handleMove, options)
+      document.addEventListener("mouseup", handleEnd, options)
+      document.addEventListener("touchmove", handleMove, options)
+      document.addEventListener("touchend", handleEnd, options)
       document.body.style.userSelect = "none"
       document.body.style.cursor = "grabbing"
+      document.body.style.touchAction = "none"
 
       return () => {
-        document.removeEventListener("mousemove", handleMouseMove)
-        document.removeEventListener("mouseup", handleMouseUp)
+        document.removeEventListener("mousemove", handleMove)
+        document.removeEventListener("mouseup", handleEnd)
+        document.removeEventListener("touchmove", handleMove)
+        document.removeEventListener("touchend", handleEnd)
         document.body.style.userSelect = ""
         document.body.style.cursor = ""
+        document.body.style.touchAction = ""
       }
     }
-  }, [isDragging, handleMouseMove, handleMouseUp])
+  }, [isDragging, handleMove, handleEnd])
 
   return (
     <>
@@ -99,11 +113,12 @@ export function ChatWidget() {
       <Button
         ref={buttonRef}
         onClick={handleButtonClick}
-        onMouseDown={handleMouseDown}
+        onMouseDown={handleStart}
+        onTouchStart={handleStart}
         className={cn(
           "fixed h-14 w-14 rounded-full shadow-lg z-50",
           "bg-primary hover:bg-primary/90 text-primary-foreground",
-          "cursor-grab active:cursor-grabbing",
+          "cursor-grab active:cursor-grabbing touch-none",
           "transition-transform duration-100 ease-out",
           isOpen && "hidden",
         )}
@@ -124,14 +139,15 @@ export function ChatWidget() {
           className={cn(
             "fixed w-96 h-[500px] shadow-xl z-50 flex flex-col",
             "transition-transform duration-100 ease-out",
-            "cursor-grab active:cursor-grabbing",
+            "cursor-grab active:cursor-grabbing touch-none",
           )}
           style={{
             bottom: `${position.y}px`,
             right: `${position.x}px`,
             transform: `scale(${isDragging ? 1.02 : 1})`,
           }}
-          onMouseDown={handleMouseDown}
+          onMouseDown={handleStart}
+          onTouchStart={handleStart}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground rounded-t-lg">
@@ -145,7 +161,8 @@ export function ChatWidget() {
               size="icon"
               onClick={() => setIsOpen(false)}
               className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
-              onMouseDown={(e) => e.stopPropagation()} // Prevent drag when clicking close button
+              onMouseDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -227,6 +244,7 @@ export function ChatWidget() {
                 className="flex-1"
                 disabled={isLoading}
                 onMouseDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
                 onFocus={(e) => e.stopPropagation()}
               />
               <Button
@@ -234,6 +252,7 @@ export function ChatWidget() {
                 size="icon"
                 disabled={isLoading || !input?.trim()}
                 onMouseDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
               >
                 <Send className="h-4 w-4" />
               </Button>

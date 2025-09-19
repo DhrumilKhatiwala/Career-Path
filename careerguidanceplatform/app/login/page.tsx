@@ -138,20 +138,30 @@ export default function LoginPage() {
                   )}
                 </div>
 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 shadow-lg">
+                <Button
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/80 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:brightness-110"
+                >
                   Login
                 </Button>
               </form>
 
               <div className="text-center">
                 <p className="text-muted-foreground">Don't have an account?</p>
-                <Button variant="link" className="text-primary hover:text-primary/80 p-0 h-auto font-medium" asChild>
+                <Button
+                  variant="link"
+                  className="text-primary hover:text-primary/70 p-0 h-auto font-medium transition-all duration-300 hover:scale-105"
+                  asChild
+                >
                   <Link href="/signup">Sign up here</Link>
                 </Button>
               </div>
 
               <div className="text-center">
-                <Button variant="link" className="text-muted-foreground hover:text-primary p-0 h-auto text-sm">
+                <Button
+                  variant="link"
+                  className="text-muted-foreground hover:text-primary p-0 h-auto text-sm transition-all duration-300 hover:scale-105"
+                >
                   Forgot your password?
                 </Button>
               </div>
