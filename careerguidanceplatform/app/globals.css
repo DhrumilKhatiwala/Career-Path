@@ -69,6 +69,10 @@
   --chart-3: #f59e0b;
   --chart-4: #ef4444;
   --chart-5: #8b5cf6;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --sidebar: #1a202c;
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #3b82f6;
@@ -170,6 +174,106 @@
   h3 {
     font-size: 1.5rem;
     font-weight: 600;
+  }
+
+  /* Mobile text overflow prevention */
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Prevent horizontal scrolling on mobile */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Fix for long URLs and text that might overflow */
+  p,
+  div,
+  span,
+  a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Specific fixes for error messages and long text */
+  .error-message,
+  [role="alert"],
+  .import-error {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    padding: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Mobile-specific responsive text sizing */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 1.875rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    /* Ensure all text containers are responsive */
+    .container,
+    .max-w-7xl,
+    .max-w-6xl,
+    .max-w-5xl,
+    .max-w-4xl {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Fix navigation text overflow on mobile */
+    nav a,
+    .nav-link {
+      font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Ensure buttons don't overflow */
+    button,
+    .btn {
+      min-width: 0;
+      word-break: break-word;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 375px) {
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
   }
 }
 
@@ -323,4 +427,39 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Utility classes for mobile text handling */
+@layer utilities {
+  .text-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .text-no-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-text-sm {
+    @media (max-width: 640px) {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+  }
+
+  .mobile-px-4 {
+    @media (max-width: 640px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  .prevent-overflow {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: break-word;
+  }
 }

@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Target, Award, ExternalLink, Save, ArrowLeft, Lightbulb, TrendingUp } from "lucide-react"
-import Link from "next/link"
+import { Target, Award, ExternalLink, Save, Lightbulb, TrendingUp } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Navigation } from "@/components/navigation"
 
 interface CareerRecommendation {
   title: string
@@ -402,11 +402,14 @@ export default function RecommendationsPage() {
 
   if (!quizAnswers) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Target className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-serif font-bold mb-2">Loading Your Recommendations...</h2>
-          <p className="text-muted-foreground">Please wait while we analyze your quiz results.</p>
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-screen pt-20">
+          <div className="text-center">
+            <Target className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h2 className="text-2xl font-serif font-bold mb-2">Loading Your Recommendations...</h2>
+            <p className="text-muted-foreground">Please wait while we analyze your quiz results.</p>
+          </div>
         </div>
       </div>
     )
@@ -414,31 +417,9 @@ export default function RecommendationsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <Target className="h-6 w-6 text-primary" />
-              <span className="text-xl font-serif font-bold">CareerPath</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/quiz">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Retake Quiz
-                </Link>
-              </Button>
-              <Button onClick={handleSaveToProfile}>
-                <Save className="h-4 w-4 mr-2" />
-                Save to Profile
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-6xl mx-auto">
           {/* Results Header */}
           <div className="text-center mb-8">
@@ -613,6 +594,14 @@ export default function RecommendationsPage() {
               </div>
             </TabsContent>
           </Tabs>
+
+          {/* Save to Profile Button */}
+          <div className="text-center mt-8">
+            <Button onClick={handleSaveToProfile} size="lg">
+              <Save className="h-4 w-4 mr-2" />
+              Save to Profile
+            </Button>
+          </div>
         </div>
       </div>
     </div>

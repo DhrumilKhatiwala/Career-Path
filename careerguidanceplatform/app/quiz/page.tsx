@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { Navigation } from "@/components/navigation"
 
 // Custom SVG icons
 const ArrowLeftIcon = () => (
@@ -156,56 +157,46 @@ export default function QuizPage() {
 
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircleIcon />
-            </div>
-            <CardTitle className="text-3xl font-heading">Quiz Complete!</CardTitle>
-            <CardDescription className="text-lg font-body">
-              Great job! We've analyzed your responses and are ready to show you personalized career recommendations.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center space-y-6">
-            <div className="bg-muted/50 rounded-lg p-6">
-              <h3 className="font-heading font-semibold mb-2">What's Next?</h3>
-              <p className="text-muted-foreground font-body">
-                Based on your answers, we'll provide tailored career suggestions, recommended courses, and learning
-                resources that align with your interests and goals.
-              </p>
-            </div>
-            <Button size="lg" onClick={handleComplete} className="w-full">
-              View My Recommendations
-              <ArrowRightIcon />
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/">Return to Home</Link>
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-screen pt-20 p-4">
+          <Card className="w-full max-w-2xl">
+            <CardHeader className="text-center">
+              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircleIcon />
+              </div>
+              <CardTitle className="text-3xl font-heading">Quiz Complete!</CardTitle>
+              <CardDescription className="text-lg font-body">
+                Great job! We've analyzed your responses and are ready to show you personalized career recommendations.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <div className="bg-muted/50 rounded-lg p-6">
+                <h3 className="font-heading font-semibold mb-2">What's Next?</h3>
+                <p className="text-muted-foreground font-body">
+                  Based on your answers, we'll provide tailored career suggestions, recommended courses, and learning
+                  resources that align with your interests and goals.
+                </p>
+              </div>
+              <Button size="lg" onClick={handleComplete} className="w-full">
+                View My Recommendations
+                <ArrowRightIcon />
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/">Return to Home</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <TargetIcon />
-              <span className="text-xl font-heading font-bold">CareerPath</span>
-            </Link>
-            <div className="text-sm text-muted-foreground">
-              Question {currentQuestion + 1} of {questions.length}
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-3xl mx-auto">
           {/* Progress Bar */}
           <div className="mb-8">

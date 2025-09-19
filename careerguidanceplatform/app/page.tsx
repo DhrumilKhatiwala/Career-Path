@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Navigation } from "@/components/navigation"
 
 // Custom SVG icons with improved styling
 const ArrowRightIcon = () => (
@@ -33,7 +33,7 @@ const BullsEyeIcon = () => (
 
 const TrendingUpIcon = () => (
   <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0-0v8m0-8l-8 8-4-4-6 6" />
     <circle cx="13" cy="7" r="2" fill="currentColor" fillOpacity="0.3" />
     <circle cx="21" cy="7" r="1" fill="currentColor" />
     <circle cx="21" cy="15" r="1" fill="currentColor" />
@@ -54,6 +54,8 @@ const SparklesIcon = () => (
 export default function HomePage() {
   return (
     <div className="min-h-screen professional-bg bg-background">
+      <Navigation />
+
       <div className="floating-element floating-circle" style={{ top: "15%", left: "8%", animationDelay: "0s" }} />
       <div className="floating-element floating-circle" style={{ top: "65%", right: "12%", animationDelay: "3s" }} />
       <div className="floating-element floating-square" style={{ top: "35%", left: "18%", animationDelay: "1.5s" }} />
@@ -65,45 +67,6 @@ export default function HomePage() {
       <div className="drifting-dot" style={{ top: "20%", animationDelay: "0s", animationDuration: "30s" }} />
       <div className="drifting-dot" style={{ top: "50%", animationDelay: "8s", animationDuration: "35s" }} />
       <div className="drifting-dot" style={{ top: "80%", animationDelay: "15s", animationDuration: "25s" }} />
-
-      <nav className="fixed top-0 w-full z-50 glass-nav">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-primary rounded-xl shadow-lg">
-                <BullsEyeIcon />
-              </div>
-              <span className="text-2xl font-heading font-bold text-foreground">CareerPath</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link
-                href="/quiz"
-                className="text-muted-foreground hover:text-primary transition-colors font-medium font-body"
-              >
-                Take Quiz
-              </Link>
-              <Link
-                href="/dashboard"
-                className="text-muted-foreground hover:text-primary transition-colors font-medium font-body"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/about"
-                className="text-muted-foreground hover:text-primary transition-colors font-medium font-body"
-              >
-                About
-              </Link>
-            </div>
-            <div className="flex items-center space-x-3">
-              <ThemeToggle />
-              <Button asChild className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
-                <Link href="/quiz">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       <section className="pt-32 pb-24 px-6 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-sm" />
@@ -224,24 +187,27 @@ export default function HomePage() {
 
       <section className="py-24 px-6 bg-gradient-to-br from-primary to-secondary relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10" />
-        <div className="container mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-8 text-balance">
+        <div className="container mx-auto text-center relative z-10 max-w-4xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6 sm:mb-8 text-balance px-4">
             Ready to Shape Your Future?
           </h2>
-          <p className="text-xl text-primary-foreground/90 mb-10 max-w-3xl mx-auto font-body text-pretty">
+          <p className="text-lg sm:text-xl text-primary-foreground/90 mb-8 sm:mb-10 max-w-3xl mx-auto font-body text-pretty px-4 leading-relaxed">
             Join thousands of students and professionals who have discovered their ideal career path. Take the first
             step towards your dream career today.
           </p>
-          <Button
-            size="lg"
-            asChild
-            className="text-lg px-10 py-6 bg-background text-primary hover:bg-background/90 shadow-xl hover:shadow-2xl transition-all hover-lift"
-          >
-            <Link href="/quiz">
-              Take the Career Assessment
-              <ArrowRightIcon />
-            </Link>
-          </Button>
+          <div className="px-4">
+            <Button
+              size="lg"
+              asChild
+              className="text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 bg-background text-primary hover:bg-background/90 shadow-xl hover:shadow-2xl transition-all hover-lift w-full sm:w-auto max-w-sm sm:max-w-none"
+            >
+              <Link href="/quiz" className="flex items-center justify-center">
+                <span className="block sm:hidden">Start Assessment</span>
+                <span className="hidden sm:block">Take the Career Assessment</span>
+                <ArrowRightIcon />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 

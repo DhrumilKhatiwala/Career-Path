@@ -7,21 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  Bot,
-  User,
-  Send,
-  MessageCircle,
-  BarChart3,
-  Target,
-  Trash2,
-  Download,
-  Star,
-  Clock,
-  TrendingUp,
-} from "lucide-react"
-import Link from "next/link"
+import { Bot, User, Send, MessageCircle, BarChart3, Trash2, Download, Star, Clock, TrendingUp } from "lucide-react"
 import { useChat } from "@ai-sdk/react"
+import { Navigation } from "@/components/navigation"
 
 interface ChatSession {
   id: string
@@ -125,25 +113,9 @@ export default function ChatbotDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <Target className="h-6 w-6 text-primary" />
-              <span className="text-xl font-heading font-bold">CareerPath</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/dashboard">Main Dashboard</Link>
-              </Button>
-              <Button onClick={startNewChat}>New Chat</Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-7xl mx-auto">
           {/* Welcome Section */}
           <div className="mb-8">

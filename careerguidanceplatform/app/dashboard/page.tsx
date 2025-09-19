@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 
 // Custom SVG components
 const Target = () => (
@@ -221,30 +222,9 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <Target />
-              <span className="text-xl font-bold">CareerPath</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/quiz">Retake Quiz</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/chatbot">AI Assistant</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/recommendations">View Recommendations</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-7xl mx-auto">
           {/* Welcome Section */}
           <div className="mb-8">
